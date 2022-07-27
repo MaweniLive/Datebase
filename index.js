@@ -19,6 +19,9 @@ app.get("/", (req, res) => {
 // Use individual routes when visiting these URLS
 app.use("/users", userRoute);
 
+// Use individual routes when visiting these URLS
+app.use("/products", productsRoute);
+
 // Set up server to start listening for requests
 app.listen(app.get("port"), () => {
   console.log(`Listening for calls on port ${app.get("port")}`);
