@@ -116,33 +116,7 @@ const { request } = require("express");
 // Register Route
 
 router.post("/register", (req, res) => {
-  const {
-    full_name,
-    email,
-    password,
-    user_type,
-    phone,
-    country,
-    billing_address,
-    default_shipping_address,
-  } = req.body;
-
-  const salt = bcrypt.genSaltSync(10);
-  const hash = bcrypt.hashSync(password, salt);
-
-  try {
-    con.query(
-      `INSERT INTO users (full_name,email,password,user_type,phone,country,billing_address,default_shipping_address) VALUES ('${full_name}','${email}','${hash}','${user_type}','${phone}','${country}','${billing_address}','${default_shipping_address}')`,
-      (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send(`User ${(full_name, email)} created successfully`);
-      }
-    );
-  } catch (error) {
-    console.log(error);
-    res.status(400).send(error);
-  }
+ return authController.Register(req, res)
 });
 
 // Login Route
