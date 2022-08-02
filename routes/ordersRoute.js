@@ -4,7 +4,7 @@ const con = require("../lib/dbConnection");
 
 router.get("/", (req, res) => {
   try {
-    con.query("SELECT * FROM products", (err, result) => {
+    con.query("SELECT * FROM orders", (err, result) => {
       if (err) throw err;
       res.send(result);
     });
@@ -15,22 +15,18 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
   const {
-    sku,
-    name,
-    price,
-    weight,
-    descriptions,
-    thumbnail,
-    image,
-    category,
-    create_date,
-    stock,
+   user_id, 
+   amount,
+   shipping_address,
+   order_email,
+   order_date,
+   order_status
   } = req.body;
   try {
     con.query(
-      `INSERT INTO products (sku, name, price, weight, descriptions, thumbnail, image, category, create_date, stock) 
+      `INSERT INTO orders ( user_id, amount, shipping_address, order_email, order_date, order_status ) 
       values 
-      ('${sku}', '${name}', '${price}', '${weight}','${descriptions}', '${thumbnail}', '${image}', '${category}', '${create_date}', '${stock}' ) `,
+      ('${user_id}', '${amount}', '${shipping_address}', '${order_email}', '${order_date}','${order_status}' ) `,
       (err, result) => {
         if (err) throw err;
         res.send(result);
